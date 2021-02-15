@@ -75,13 +75,16 @@ class Graph() :
     def breadthFirstSearch(self, startNode, endNode):
         deque1 = deque()
         result = list()
-        result.append(startNode)
-        currentNode = startNode
-        while currentNode != endNode :
-            currentNode = self.nodeTable[currentNode]
+        result.append(self.nodeTable[startNode])
+        currentNode = self.nodeTable[startNode]
+        currentNodeList = self.edgeMap[self.nodeTable[startNode]]
+        while currentNode != self.nodeTable[endNode] :
+            currentNodeList = self.edgeMap[self.nodeTable[currentNode]]
             for tempnode in currentNode :
                 deque1.append(tempnode)
                 result.append(tempnode)
+            if len(deque1) == 0 :
+                return result
             currentNode = deque1.popleft()
         return result
         # pass
@@ -90,7 +93,26 @@ class Graph() :
     ### return a list of Nodes that indicates the path from start to finish, using depth-first search.
 
     def depthFirstSearch(self, startNode, endNode):
-        pass
+        stack = deque()
+        nodeDic = self.nodeTable
+        edgeDic = self.edgeMap
+        currentNode = nodeDic[startNode]
+        result = list()
+        result.append(currentNode)
+        while currentNode != self.nodeTable[endNode] :
+            if len(edgeDic[currentNode]) == 0 :
+                if len(stack) == 0 :
+                    return result
+                else :
+                    currentNode = stack.pop()
+            else :
+                stack.append(currentNode)
+                pointerNode = edgeDic[currentNode][0]
+                edgeDic[currentNode].pop(pointerNode.name)
+                currentNode = pointerNode
+                result.append(currentNode)
+        return result
+        # pass
 
     ### implement Djikstra's all-pairs shortest-path algorithm.
     ### https://yourbasic.org/algorithms/graph/#dijkstra-s-algorithm
