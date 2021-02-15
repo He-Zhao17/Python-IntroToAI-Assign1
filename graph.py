@@ -1,3 +1,4 @@
+from collections import deque
 ### graph.py
 ### an implementation of a graph using an adjacency list.
 
@@ -16,7 +17,7 @@ class Node() :
 ### will add other annotations.
 
 class Edge() :
-    def __init__(self, src,dest, weight) :
+    def __init__(self, src, dest, weight) :
         self.src = src
         self.dest = dest
         self.weight = weight
@@ -35,10 +36,11 @@ class Graph() :
 
     ### implements the 'in' keyword. Returns true if the node is in the graph.
     def __contains__(self, item):
-        return item in self.nodeTable
+        return self.nodeTable.has_key(item)
+        # return item in self.nodeTable
 
     def getNode(self, src):
-        return nodeList[src]
+        return self.nodeTable[src]
 
     def addNode(self, src):
         if src not in self.nodeTable :
@@ -71,7 +73,18 @@ class Graph() :
     ### return a list of Nodes that indicates the path from start to finish, using breadth-first search.
 
     def breadthFirstSearch(self, startNode, endNode):
-        pass
+        deque1 = deque()
+        result = list()
+        result.append(startNode)
+        currentNode = startNode
+        while currentNode != endNode :
+            currentNode = self.nodeTable[currentNode]
+            for tempnode in currentNode :
+                deque1.append(tempnode)
+                result.append(tempnode)
+            currentNode = deque1.popleft()
+        return result
+        # pass
 
     ### inputs are the name of a startNode and endNode. Given this,
     ### return a list of Nodes that indicates the path from start to finish, using depth-first search.
