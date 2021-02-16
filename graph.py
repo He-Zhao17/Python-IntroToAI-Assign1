@@ -78,14 +78,14 @@ class Graph() :
     def breadthFirstSearch(self, startNode, endNode):
         deque1 = deque()
         result = list()
-        result.append(self.nodeTable[startNode])
-        currentNode = self.nodeTable[startNode]
-        currentNodeList = self.edgeMap[self.nodeTable[startNode]]
-        while currentNode != self.nodeTable[endNode] :
-            currentNodeList = self.edgeMap[self.nodeTable[currentNode]]
-            for tempnode in currentNode :
-                deque1.append(tempnode)
-                result.append(tempnode)
+        result.append(startNode)
+        currentNode = startNode
+        currentNodeList = self.edgeMap[startNode]
+        while currentNode != endNode :
+            currentNodeList = self.edgeMap[currentNode]
+            for tempedge in currentNodeList :
+                deque1.append(tempedge.dest)
+                result.append(tempedge.dest)
             if len(deque1) == 0 :
                 return result
             currentNode = deque1.popleft()
