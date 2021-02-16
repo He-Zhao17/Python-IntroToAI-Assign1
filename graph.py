@@ -99,10 +99,10 @@ class Graph() :
         stack = deque()
         nodeDic = self.nodeTable
         edgeDic = self.edgeMap
-        currentNode = nodeDic[startNode]
+        currentNode = startNode
         result = list()
         result.append(currentNode)
-        while currentNode != self.nodeTable[endNode] :
+        while currentNode != endNode :
             if len(edgeDic[currentNode]) == 0 :
                 if len(stack) == 0 :
                     return result
@@ -110,9 +110,9 @@ class Graph() :
                     currentNode = stack.pop()
             else :
                 stack.append(currentNode)
-                pointerNode = edgeDic[currentNode][0]
-                edgeDic[currentNode].pop(pointerNode.name)
-                currentNode = pointerNode
+                pointerEdge = edgeDic[currentNode][0]
+                edgeDic[currentNode].pop(pointerEdge)
+                currentNode = pointerEdge.dest
                 result.append(currentNode)
         return result
         # pass
