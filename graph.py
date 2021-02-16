@@ -122,12 +122,6 @@ class Graph() :
     ### return the array of distances and the array previous nodes.
 
     # I return a dictionary.
-    def isAllTrue(self, isAccessed):
-        for item in isAccessed :
-            if isAccessed[item] == False :
-                return False
-        return True
-
     def minDic(self, par) :
         Inf = float('inf')
         min = Inf
