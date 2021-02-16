@@ -118,8 +118,48 @@ class Graph() :
     ### https://yourbasic.org/algorithms/graph/#dijkstra-s-algorithm
     ### return the array of distances and the array previous nodes.
 
+    # I return a dictionary.
+    def isAllTrue(self, isAccessed):
+        for item in isAccessed :
+            if isAccessed[item] == False :
+                return False
+        return True
+
+    def minDic(self, par) :
+        Inf = float('inf')
+        min = Inf
+        minNode = ""
+        for item in par :
+            if par[item] < min :
+                min = par[item]
+                minNode = item
+        return minNode
+
+
+
+
     def djikstra(self, startNode):
-        pass
+        Inf = float ('inf')
+        dist = dict()
+        par = dict()
+        prev = dict()
+        dist[startNode] = 0
+        prev[startNode] = startNode
+        for item in self.nodeTable :
+            if item != startNode :
+                par[item] = Inf
+        currentNode = startNode
+        while len(par) > 0 :
+            for item in self.edgeMap[currentNode] :
+                if par.has_key(item) :
+                    if item.weight + dist[currentNode] < par[item.dest]:
+                        par[item.dest] = item.weight + dist[currentNode]
+            prev[self.minDic(par)] = currentNode
+            currentNode = self.minDic(par)
+            dist[currentNode] = par[currentNode]
+            par.pop(currentNode)
+        return dist, prev
+        # pass
 
     ### takes as input a starting node, and computes the minimum spanning tree, using Prim's algorithm.
     ### https:// en.wikipedia.org/wiki/Prim % 27s_algorithm
