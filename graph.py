@@ -36,7 +36,10 @@ class Graph() :
 
     ### implements the 'in' keyword. Returns true if the node is in the graph.
     def __contains__(self, item):
-        return self.nodeTable.has_key(item)
+        for i in self.nodeTable :
+            if self.nodeTable[i] == item :
+                return True
+        return False
         # return item in self.nodeTable
 
     def getNode(self, src):
